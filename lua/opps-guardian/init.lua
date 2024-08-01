@@ -51,11 +51,16 @@ function M.check_prefix_match_files()
   vim.cmd("edit " .. choice)
 end
 
--- 存在しないファイルが開かれたときに起動
-vim.api.nvim_create_autocmd("BufNewFile", {
-  pattern = "*",
-  callback = M.check_prefix_match_files
-})
+function M.setup_autocmd()
+  -- 存在しないファイルが開かれたときに起動
+  vim.api.nvim_create_autocmd("BufNewFile", {
+    pattern = "*",
+    callback = M.check_prefix_match_files
+  })
+end
+
+function M.init()
+  M.setup_autocmd()
+end
 
 return M
-
